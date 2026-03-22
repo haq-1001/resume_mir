@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mir Misbaah Ul Haque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ─────────────────────────────────────────────
+   RESET & TOKENS
+───────────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  /* Palette charcoal/ink, warm white, antique gold */
+  --ink:        #0D0D0D;
+  --ink-2:      #1A1A1A;
+  --ink-3:      #252525;
+  --paper:      #F4F1EC;
+  --paper-2:    #EDE9E2;
+  --paper-3:    #E4DFD7;
+  --gold:       #A8843A;
+  --gold-lt:    #C9A85C;
+  --white:      #FFFFFF;
+  --smoke:      rgba(13,13,13,0.06);
+
+  /* Type */
+  --serif:  'Cormorant', Georgia, serif;
+  --sans:   'DM Sans', system-ui, sans-serif;
+  --mono:   'DM Mono', 'Courier New', monospace;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--ink);}
+::-webkit-scrollbar-thumb{background:var(--gold);}
+
+/* ─────────────────────────────────────────────
+   UTILITY
+───────────────────────────────────────────── */
+.wrap{max-width:1100px;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem);}
+.sec{padding:clamp(5rem,10vw,9rem) 0;}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:0.65rem;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:1rem;
+  display:block;
+}
+.display{
+  font-family:var(--serif);
+  font-weight:700;
+  line-height:1.05;
+  letter-spacing:-0.01em;
+}
+.body-copy{
+  font-size:0.975rem;
+  line-height:1.9;
+  font-weight:300;
+  color:#555;
+  letter-spacing:0.01em;
+}
+
+/* fade-up reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.75s var(--ease),transform 0.75s var(--ease);}
+.reveal.in{opacity:1;transform:none;}
+.reveal.d1{transition-delay:0.1s;}
+.reveal.d2{transition-delay:0.2s;}
+.reveal.d3{transition-delay:0.3s;}
+.reveal.d4{transition-delay:0.4s;}
+
+/* ─────────────────────────────────────────────
+   NAV
+───────────────────────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:0 clamp(1.25rem,5vw,3rem);
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background 0.4s,box-shadow 0.4s;
+}
+#nav.stuck{
+  background:rgba(13,13,13,0.97);
+  backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 rgba(255,255,255,0.06);
+}
+.nav-brand{
+  font-family:var(--serif);
+  font-size:1.25rem;
+  font-weight:700;
+  color:var(--white);
+  letter-spacing:0.02em;
+}
+.nav-brand em{font-style:normal;color:var(--gold);}
+.nav-links{
+  display:flex;gap:2rem;list-style:none;
+}
+.nav-links a{
+  font-family:var(--mono);
+  font-size:0.62rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.5);
+  transition:color 0.25s;
+}
+.nav-links a:hover{color:var(--gold);}
+
+/* hamburger */
+.burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.burger span{
+  display:block;width:22px;height:1.5px;
+  background:var(--white);
+  transition:transform 0.35s var(--ease),opacity 0.35s;
+}
+.burger.open span:nth-child(1){transform:rotate(45deg) translate(4.8px,4.8px);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:rotate(-45deg) translate(4.8px,-4.8px);}
+
+/* mobile drawer */
+.drawer{
+  position:fixed;inset:0;z-index:800;
+  background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  transform:translateX(100%);
+  transition:transform 0.5s var(--ease);
+}
+.drawer.open{transform:none;}
+.drawer ul{list-style:none;text-align:center;}
+.drawer ul li{margin:1.2rem 0;}
+.drawer ul a{
+  font-family:var(--serif);
+  font-size:2rem;
+  font-weight:700;
+  color:var(--white);
+  transition:color 0.25s;
+}
+.drawer ul a:hover{color:var(--gold);}
+
+/* ─────────────────────────────────────────────
+   HERO  (dark ink background)
+───────────────────────────────────────────── */
+#hero{
+  min-height:100vh;
+  background:var(--ink);
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  padding-top:64px;
+}
+/* subtle grid */
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:72px 72px;
+  pointer-events:none;
+}
+/* gold accent line left */
+#hero::after{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+}
+.hero-inner{
+  position:relative;z-index:1;
+  padding:clamp(4rem,8vw,7rem) 0;
+}
+.hero-kicker{
+  font-family:var(--mono);
+  font-size:0.65rem;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:1.75rem;
+  opacity:0;animation:up 0.8s 0.2s var(--ease) forwards;
+}
+.hero-name{
+  font-family:var(--serif);
+  font-size:clamp(3.2rem,9vw,7.5rem);
+  font-weight:700;
+  line-height:0.95;
+  color:var(--white);
+  margin-bottom:2rem;
+  opacity:0;animation:up 0.9s 0.35s var(--ease) forwards;
+}
+.hero-name em{
+  display:block;
+  font-style:italic;
+  color:var(--gold);
+}
+.hero-sub{
+  font-family:var(--mono);
+  font-size:clamp(0.7rem,1.2vw,0.8rem);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.38);
+  line-height:2;
+  margin-bottom:3rem;
+  opacity:0;animation:up 0.8s 0.55s var(--ease) forwards;
+}
+.hero-btns{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  opacity:0;animation:up 0.8s 0.7s var(--ease) forwards;
+}
+.btn{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:0.65rem;
+  font-weight:500;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  padding:0.9rem 2.2rem;
+  border:1px solid transparent;
+  transition:background 0.3s,color 0.3s,border-color 0.3s,transform 0.3s;
+  cursor:pointer;
+  text-decoration:none;
+  line-height:1;
+}
+.btn-solid{background:var(--gold);color:var(--ink);}
+.btn-solid:hover{background:var(--gold-lt);transform:translateY(-2px);}
+.btn-ghost{border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.7);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+
+/* scroll hint */
+.hero-scroll{
+  position:absolute;bottom:2rem;left:clamp(1.25rem,5vw,3rem);
+  display:flex;align-items:center;gap:0.9rem;
+  opacity:0;animation:fade 1s 1.2s forwards;
+}
+.hero-scroll span{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:rgba(255,255,255,0.25);
+}
+.scroll-bar{
+  width:40px;height:1px;background:var(--gold);
+  transform:scaleX(0);transform-origin:left;
+  animation:grow 0.9s 1.6s var(--ease) forwards;
+}
+
+/* ─────────────────────────────────────────────
+   ABOUT  (warm paper)
+───────────────────────────────────────────── */
+#about{background:var(--paper);}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1.8fr;
+  gap:clamp(2rem,6vw,6rem);
+  align-items:start;
+}
+.about-heading{
+  font-size:clamp(2.2rem,4vw,3.5rem);
+  color:var(--ink);
+  position:sticky;top:100px;
+}
+.about-heading em{color:var(--gold);}
+.about-body p{
+  font-size:1rem;line-height:1.95;font-weight:300;
+  color:#444;margin-bottom:1.4rem;
+}
+.tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:2rem;}
+.tag{
+  font-family:var(--mono);
+  font-size:0.6rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  padding:0.4rem 0.9rem;
+  border:1px solid rgba(13,13,13,0.18);
+  color:rgba(13,13,13,0.55);
+  transition:border-color 0.3s,color 0.3s;
+}
+.tag:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ─────────────────────────────────────────────
+   PROFILE  (ink dark)
+───────────────────────────────────────────── */
+#profile{background:var(--ink-2);}
+.profile-grid{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:clamp(2.5rem,6vw,6rem);
+  align-items:center;
+}
+.photo-wrap{
+  position:relative;
+  width:clamp(220px,26vw,300px);
+  flex-shrink:0;
+}
+.photo-box{
+  width:100%;
+  aspect-ratio:3/4;
+  background:var(--ink-3);
+  border:1px solid rgba(255,255,255,0.07);
+  overflow:hidden;
+  position:relative;
+  z-index:1;
+}
+.photo-box img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.photo-placeholder-inner{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:0.75rem;
+}
+.photo-init{
+  font-family:var(--serif);
+  font-size:5rem;font-weight:700;
+  color:rgba(255,255,255,0.12);
+  line-height:1;
+}
+.photo-placeholder-inner p{
+  font-family:var(--mono);
+  font-size:0.58rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:rgba(255,255,255,0.2);
+}
+.upload-label{
+  font-family:var(--mono);
+  font-size:0.58rem;letter-spacing:0.16em;
+  text-transform:uppercase;
+  padding:0.4rem 1rem;
+  border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.4);
+  cursor:pointer;
+  transition:border-color 0.3s,color 0.3s;
+}
+.upload-label:hover{border-color:var(--gold);color:var(--gold);}
+/* accent corner */
+.photo-wrap::after{
+  content:'';
+  position:absolute;
+  bottom:-10px;right:-10px;
+  width:100%;height:100%;
+  border:1px solid rgba(168,132,58,0.2);
+  z-index:0;
+}
+
+.profile-info{color:var(--white);}
+.profile-quote{
+  font-family:var(--serif);
+  font-size:clamp(1.3rem,2.5vw,1.9rem);
+  font-style:italic;
+  font-weight:600;
+  line-height:1.45;
+  color:var(--white);
+  padding-left:1.5rem;
+  border-left:2px solid var(--gold);
+  margin-bottom:2.5rem;
+}
+.info-table{margin-bottom:2.5rem;border-top:1px solid rgba(255,255,255,0.07);}
+.info-row{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:1rem;
+  padding:0.9rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  align-items:baseline;
+}
+.info-key{
+  font-family:var(--mono);
+  font-size:0.58rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+}
+.info-val{
+  font-size:0.9rem;font-weight:400;
+  color:rgba(255,255,255,0.82);
+}
+.info-val.open{
+  color:var(--gold);
+  font-family:var(--mono);
+  font-size:0.65rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+.li-btn{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:#0A66C2;color:var(--white);
+  font-family:var(--mono);font-size:0.62rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  padding:0.85rem 2rem;
+  transition:background 0.3s,transform 0.3s;
+  border:none;
+}
+.li-btn:hover{background:#004f9a;transform:translateY(-2px);}
+.li-btn svg{flex-shrink:0;}
+
+/* ─────────────────────────────────────────────
+   EDUCATION  (paper)
+───────────────────────────────────────────── */
+#education{background:var(--paper-2);}
+.edu-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--paper-3);
+}
+.edu-card{
+  background:var(--paper-2);
+  padding:clamp(1.8rem,4vw,3rem);
+  transition:background 0.3s;
+}
+.edu-card:hover{background:var(--ink);} 
+.edu-card:hover .edu-deg{color:var(--white);}
+.edu-card:hover .edu-spec{color:var(--gold-lt);}
+.edu-card:hover .edu-inst{color:rgba(255,255,255,0.35);}
+.edu-card:hover .edu-chip{border-color:rgba(168,132,58,0.35);color:rgba(168,132,58,0.8);}
+.edu-year{
+  font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.4rem;display:block;
+}
+.edu-deg{
+  font-family:var(--serif);font-size:1.45rem;
+  font-weight:700;line-height:1.2;color:var(--ink);
+  margin-bottom:0.3rem;transition:color 0.3s;
+}
+.edu-spec{
+  font-size:0.85rem;font-style:italic;font-weight:300;
+  color:var(--gold);margin-bottom:0.5rem;transition:color 0.3s;
+}
+.edu-inst{
+  font-family:var(--mono);font-size:0.62rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(13,13,13,0.35);margin-bottom:1.4rem;
+  transition:color 0.3s;
+}
+.chips{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.edu-chip{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.2rem 0.65rem;
+  border:1px solid rgba(13,13,13,0.15);
+  color:rgba(13,13,13,0.45);
+  transition:border-color 0.3s,color 0.3s;
+}
+
+/* ─────────────────────────────────────────────
+   SKILLS  (ink)
+───────────────────────────────────────────── */
+#skills{background:var(--ink);}
+#skills .eyebrow{color:var(--gold);}
+#skills .display{color:var(--white);}
+.skills-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:rgba(255,255,255,0.06);
+  margin-top:0;
+}
+.sk-card{
+  padding:clamp(1.8rem,4vw,3rem);
+  background:var(--ink);
+  transition:background 0.35s;
+  position:relative;
+  overflow:hidden;
+}
+.sk-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gold);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.45s var(--ease);
+}
+.sk-card:hover::before{transform:scaleX(1);}
+.sk-card:hover{background:var(--ink-3);}
+.sk-num{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.22em;color:rgba(255,255,255,0.15);
+  margin-bottom:1.75rem;display:block;
+}
+.sk-name{
+  font-family:var(--serif);font-size:1.6rem;
+  font-weight:700;color:var(--white);
+  margin-bottom:0.85rem;
+}
+.sk-desc{
+  font-size:0.875rem;line-height:1.85;font-weight:300;
+  color:rgba(255,255,255,0.45);margin-bottom:2rem;
+}
+.bar-wrap{height:1.5px;background:rgba(255,255,255,0.08);}
+.bar{height:100%;background:var(--gold);width:0;transition:width 1.4s var(--ease);}
+
+/* ─────────────────────────────────────────────
+   PROJECTS  (paper)
+───────────────────────────────────────────── */
+#projects{background:var(--paper);}
+.proj-card{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:clamp(1.5rem,4vw,3.5rem);
+  align-items:start;
+  padding:clamp(2rem,4vw,3.5rem);
+  border:1px solid rgba(13,13,13,0.1);
+  transition:border-color 0.4s,box-shadow 0.4s;
+}
+.proj-card:hover{
+  border-color:var(--gold);
+  box-shadow:0 8px 40px rgba(168,132,58,0.08);
+}
+.proj-num{
+  font-family:var(--serif);
+  font-size:5rem;font-weight:700;
+  color:rgba(13,13,13,0.07);
+  line-height:1;
+}
+.proj-label{
+  font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.7rem;display:block;
+}
+.proj-title{
+  font-family:var(--serif);
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:700;color:var(--ink);
+  margin-bottom:1rem;line-height:1.15;
+}
+.proj-desc{
+  font-size:0.975rem;line-height:1.9;font-weight:300;
+  color:#555;margin-bottom:1.5rem;
+}
+.proj-tools{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+.proj-tool{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.25rem 0.8rem;
+  border:1px solid rgba(13,13,13,0.15);
+  color:rgba(13,13,13,0.45);
+}
+.proj-stats{display:flex;gap:2.5rem;flex-wrap:wrap;}
+.pstat strong{
+  display:block;
+  font-family:var(--serif);font-size:2rem;
+  font-weight:700;color:var(--ink);line-height:1;
+}
+.pstat small{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:rgba(13,13,13,0.35);margin-top:0.25rem;display:block;
+}
+
+/* ─────────────────────────────────────────────
+   CERTIFICATIONS  (ink)
+───────────────────────────────────────────── */
+#certs{background:var(--ink-2);}
+#certs .display{color:var(--white);}
+.certs-grid{
+  display:grid;
+  grid-template-columns:1fr 1.5fr;
+  gap:1px;
+  background:rgba(255,255,255,0.06);
+}
+.cert-card{
+  padding:clamp(2rem,4vw,3rem);
+  background:var(--ink-2);
+  position:relative;overflow:hidden;
+}
+.cert-card:hover{background:var(--ink-3);}
+.cert-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:1.5rem;
+}
+.cert-badge-pill{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.14em;text-transform:uppercase;
+  padding:0.28rem 0.85rem;
+  background:var(--gold);color:var(--ink);
+  font-weight:500;
+}
+.cert-name{
+  font-family:var(--serif);font-size:1.7rem;
+  font-weight:700;color:var(--white);
+  margin-bottom:0.75rem;
+}
+.cert-desc{
+  font-size:0.875rem;line-height:1.85;font-weight:300;
+  color:rgba(255,255,255,0.4);margin-bottom:1.75rem;
+}
+.cert-verified{
+  font-family:var(--mono);font-size:0.6rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--gold);
+}
+
+.li-card{
+  padding:clamp(2rem,4vw,3rem);
+  background:var(--ink-2);
+  border-left:2px solid #0A66C2;
+  display:flex;flex-direction:column;gap:1.25rem;
+}
+.li-card:hover{background:var(--ink-3);}
+.li-card h3{
+  font-family:var(--serif);font-size:1.45rem;
+  font-weight:700;color:var(--white);
+}
+.li-card p{
+  font-size:0.875rem;line-height:1.85;font-weight:300;
+  color:rgba(255,255,255,0.4);
+}
+.li-chips{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.li-chip{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.2rem 0.65rem;
+  border:1px solid rgba(10,102,194,0.35);
+  color:rgba(10,102,194,0.8);
+}
+
+/* ─────────────────────────────────────────────
+   CONTACT  (paper)
+───────────────────────────────────────────── */
+#contact{background:var(--paper-2);}
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--paper-3);
+  margin:3rem 0;
+}
+.c-block{
+  background:var(--paper-2);
+  padding:clamp(1.8rem,4vw,3rem);
+  transition:background 0.3s;
+}
+.c-block:hover{background:var(--paper);}
+.c-key{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.6rem;display:block;
+}
+.c-val{
+  font-family:var(--serif);
+  font-size:clamp(1.1rem,2vw,1.45rem);
+  font-weight:700;color:var(--ink);
+  transition:color 0.25s;display:block;
+  margin-bottom:0.4rem;
+}
+.c-val:hover{color:var(--gold);}
+.c-note{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.1em;color:rgba(13,13,13,0.3);
+  text-transform:uppercase;
+}
+.contact-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer{
+  background:var(--ink);
+  padding:1.5rem clamp(1.25rem,5vw,3rem);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.foot-name{
+  font-family:var(--serif);font-size:0.9rem;
+  font-weight:700;color:var(--white);
+}
+.foot-right{
+  display:flex;align-items:center;gap:1.5rem;
+}
+.foot-copy{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.12em;color:rgba(255,255,255,0.2);
+  text-transform:uppercase;
+}
+.foot-li{
+  font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gold);transition:opacity 0.25s;
+}
+.foot-li:hover{opacity:0.7;}
+
+/* ─────────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────────── */
+@keyframes up{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+@keyframes grow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;}
+  .about-heading{position:static;}
+  .profile-grid{grid-template-columns:1fr;}
+  .photo-wrap{width:clamp(180px,55vw,260px);}
+  .edu-grid{grid-template-columns:1fr;}
+  .skills-row{grid-template-columns:1fr;}
+  .certs-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .proj-card{grid-template-columns:1fr;}
+  .proj-num{display:none;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .burger{display:flex;}
+  #nav{height:56px;}
+  .hero-scroll{display:none;}
+}
+@media(max-width:480px){
+  .hero-btns{flex-direction:column;align-items:flex-start;}
+  .btn{text-align:center;}
+  .proj-stats{gap:1.5rem;}
+  .contact-actions{flex-direction:column;}
+  footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-brand">Mir Misbaah <em>Ul Haque</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap hero-inner">
+    <p class="hero-kicker">Commerce · Finance · Entrepreneurship</p>
+    <h1 class="hero-name">Mir Misbaah<em>Ul Haque</em></h1>
+    <p class="hero-sub">
+      B.Com International Finance, Loyola Academy<br>
+      BBA Entrepreneurship &amp; Digital Business, IIM Bangalore<br>
+      Class of 2028
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-solid">View My Work</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <span class="eyebrow reveal">01 / About</span>
+        <h2 class="display about-heading reveal d1">A Future<br><em style="color:var(--gold);font-style:italic;">Business<br>Leader</em></h2>
+      </div>
+      <div class="about-body">
+        <p class="reveal d1">I am Mir Misbaah Ul Haque, a dual-degree candidate pursuing Bachelor of Commerce in International Finance alongside a Bachelor of Business Administration in Entrepreneurship &amp; Digital Business. My work sits at the intersection of financial discipline, strategic thinking, and entrepreneurial execution.</p>
+        <p class="reveal d2">I operate with the conviction that execution separates vision from outcome. From launching a live business with ₹250 as the entire starting capital to earning certification in industry-standard accounting software, every step I take is deliberate and results-oriented.</p>
+        <div class="tags reveal d3">
+          <span class="tag">Dual Degree Candidate</span>
+          <span class="tag">IIM Bangalore</span>
+          <span class="tag">Tally Prime Certified</span>
+          <span class="tag">Bootstrapped Entrepreneur</span>
+          <span class="tag">International Finance</span>
+          <span class="tag">Digital Marketing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="sec">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="color:rgba(255,255,255,0.35)">02 / Profile</span>
+    <div class="profile-grid">
+      <div class="photo-wrap reveal">
+        <div class="photo-box" id="photoBox">
+          <img src="mir.png" id="photoImg" alt="Mir Misbaah Ul Haque"
+               onerror="this.src='mir.jpeg';this.onerror=function(){this.style.display='none';document.getElementById('photoFallback').style.display='flex';}"/>
+          <div class="photo-placeholder-inner" id="photoFallback" style="display:none;">
+            <span class="photo-init">M</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-info reveal d2">
+        <p class="profile-quote">"Resourcefulness beats resources. Every single time."</p>
+        <div class="info-table">
+          <div class="info-row">
+            <span class="info-key">Full Name</span>
+            <span class="info-val">Mir Misbaah Ul Haque</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Discipline</span>
+            <span class="info-val">Finance · Entrepreneurship · Strategy</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Based In</span>
+            <span class="info-val">India</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">Status</span>
+            <span class="info-val open">Open to Opportunities</span>
+          </div>
+        </div>
+        <a href="https://www.linkedin.com/in/mir-misbaah-u-a36a05363" target="_blank" class="li-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          Connect on LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="sec">
+  <div class="wrap">
+    <span class="eyebrow reveal">03 / Education</span>
+    <h2 class="display reveal d1" style="font-size:clamp(2.2rem,4vw,3.5rem);color:var(--ink);margin-bottom:3rem;">Academic <em style="color:var(--gold);">Foundation</em></h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <span class="edu-year">2025 – 2028</span>
+        <p class="edu-deg">Bachelor of Commerce</p>
+        <p class="edu-spec">International Finance</p>
+        <p class="edu-inst">Loyola Academy Degree &amp; PG College</p>
+        <div class="chips">
+          <span class="edu-chip">Finance</span>
+          <span class="edu-chip">Commerce</span>
+          <span class="edu-chip">International Markets</span>
+        </div>
+      </div>
+      <div class="edu-card reveal d2">
+        <span class="edu-year">2025 – 2028</span>
+        <p class="edu-deg">Bachelor of Business Administration</p>
+        <p class="edu-spec">Entrepreneurship &amp; Digital Business</p>
+        <p class="edu-inst">Indian Institute of Management, Bangalore</p>
+        <div class="chips">
+          <span class="edu-chip">IIM</span>
+          <span class="edu-chip">Entrepreneurship</span>
+          <span class="edu-chip">Digital Business</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="sec">
+  <div class="wrap">
+    <span class="eyebrow reveal">04 / Skills</span>
+    <h2 class="display reveal d1" style="font-size:clamp(2.2rem,4vw,3.5rem);color:var(--white);margin-bottom:3rem;">Core <em style="color:var(--gold);">Competencies</em></h2>
+  </div>
+  <div class="wrap" style="padding:0 clamp(1.25rem,5vw,3rem);">
+    <div class="skills-row">
+      <div class="sk-card reveal">
+        <span class="sk-num">01</span>
+        <p class="sk-name">Accounting</p>
+        <p class="sk-desc">Proficient in financial recording, Tally Prime, and interpreting financial statements to support sound business decisions.</p>
+        <div class="bar-wrap"><div class="bar" data-w="88"></div></div>
+      </div>
+      <div class="sk-card reveal d1">
+        <span class="sk-num">02</span>
+        <p class="sk-name">Sales</p>
+        <p class="sk-desc">Hands-on experience in customer acquisition, negotiation, and closing, developed through live venture operations.</p>
+        <div class="bar-wrap"><div class="bar" data-w="80"></div></div>
+      </div>
+      <div class="sk-card reveal d2">
+        <span class="sk-num">03</span>
+        <p class="sk-name">Marketing</p>
+        <p class="sk-desc">Strategic and digital marketing: brand building, social media campaigns, and lean-budget execution with measurable reach.</p>
+        <div class="bar-wrap"><div class="bar" data-w="85"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec">
+  <div class="wrap">
+    <span class="eyebrow reveal">05 / Projects</span>
+    <h2 class="display reveal d1" style="font-size:clamp(2.2rem,4vw,3.5rem);color:var(--ink);margin-bottom:3rem;">Real-World <em style="color:var(--gold);">Execution</em></h2>
+    <div class="proj-card reveal d2">
+      <div class="proj-num">01</div>
+      <div>
+        <span class="proj-label">Entrepreneurship</span>
+        <h3 class="proj-title">Business Venture: Rs.250 Seed Capital</h3>
+        <p class="proj-desc">Conceived, launched, and managed a fully operational business with ₹250 as the entire starting capital. This project stripped away every conventional resource and proved that disciplined execution, social media leverage, and managerial clarity can build something real from nothing.</p>
+        <div class="proj-tools">
+          <span class="proj-tool">Social Media</span>
+          <span class="proj-tool">Managerial Skills</span>
+          <span class="proj-tool">Bootstrapping</span>
+        </div>
+        <div class="proj-stats">
+          <div class="pstat"><strong>₹250</strong><small>Seed Capital</small></div>
+          <div class="pstat"><strong>0 → 1</strong><small>Business Built</small></div>
+          <div class="pstat"><strong>100%</strong><small>Self-Managed</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" class="sec">
+  <div class="wrap">
+    <span class="eyebrow reveal" style="color:rgba(255,255,255,0.35);">06 / Certifications</span>
+    <h2 class="display reveal d1" style="font-size:clamp(2.2rem,4vw,3.5rem);color:var(--white);margin-bottom:3rem;">Verified <em style="color:var(--gold);">Credentials</em></h2>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-top">
+          <span class="eyebrow" style="margin:0;color:rgba(255,255,255,0.25);">Accounting Software</span>
+          <span class="cert-badge-pill">Certified</span>
+        </div>
+        <p class="cert-name">Tally Prime</p>
+        <p class="cert-desc">Certified in India's leading accounting and ERP software. Covers GST billing, ledger management, payroll processing, inventory, and financial reporting.</p>
+        <span class="cert-verified">✓ Verified Certification</span>
+      </div>
+      <div class="li-card reveal d2">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        <h3>Full Certification Record</h3>
+        <p>My complete and up-to-date certification portfolio is maintained on LinkedIn, the professional standard for verified credentials.</p>
+        <div class="li-chips">
+          <span class="li-chip">Always Current</span>
+          <span class="li-chip">LinkedIn Verified</span>
+          <span class="li-chip">Shareable</span>
+        </div>
+        <a href="https://www.linkedin.com/in/mir-misbaah-u-a36a05363" target="_blank" class="li-btn" style="margin-top:auto;align-self:flex-start;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          View on LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec">
+  <div class="wrap">
+    <span class="eyebrow reveal">07 / Contact</span>
+    <h2 class="display reveal d1" style="font-size:clamp(2.2rem,4vw,3.5rem);color:var(--ink);margin-bottom:1rem;">Let's <em style="color:var(--gold);">Connect</em></h2>
+    <p class="body-copy reveal d2" style="max-width:520px;margin-bottom:0;">Available for internships, collaborations, and professional opportunities. Direct enquiries are always welcome.</p>
+    <div class="contact-grid">
+      <div class="c-block">
+        <span class="c-key">Email</span>
+        <a href="mailto:mirmisbaah0@gmail.com" class="c-val">mirmisbaah0@gmail.com</a>
+        <span class="c-note">Direct professional enquiries</span>
+      </div>
+      <div class="c-block">
+        <span class="c-key">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/mir-misbaah-u-a36a05363" target="_blank" rel="noopener" class="c-val">mir-misbaah-u-a36a05363</a>
+        <span class="c-note">Profile · Certifications · Connect</span>
+      </div>
+    </div>
+    <div class="contact-actions">
+      <a href="mailto:mirmisbaah0@gmail.com" class="btn btn-solid" style="background:var(--ink);color:var(--white);display:inline-block;">Send an Email</a>
+      <a href="https://www.linkedin.com/in/mir-misbaah-u-a36a05363" target="_blank" rel="noopener" class="btn" style="background:#0A66C2;color:#fff;border-color:#0A66C2;display:inline-block;">Connect on LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="foot-name">Mir Misbaah Ul Haque</span>
+  <div class="foot-right">
+    <span class="foot-copy">© 2025 All rights reserved</span>
+    <a href="https://www.linkedin.com/in/mir-misbaah-u-a36a05363" target="_blank" class="foot-li">LinkedIn ↗</a>
+  </div>
+</footer>
+
+<script>
+// ── NAV STICKY
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 40), {passive:true});
+
+// ── HAMBURGER
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  drawer.classList.toggle('open');
+  document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+});
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+// ── SCROLL REVEAL
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ── SKILL BARS
+const barIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelector('.bar').style.width = e.target.querySelector('.bar').dataset.w + '%';
+      barIO.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('.sk-card').forEach(c => barIO.observe(c));
+
+
+
+
+// ── ACTIVE NAV
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      links.forEach(l => l.style.color = l.getAttribute('href') === '#'+e.target.id ? 'var(--gold)' : '');
+    }
+  });
+}, {threshold: 0.4}).observe || secs.forEach(s => new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) links.forEach(l => l.style.color = l.getAttribute('href')==='#'+e.target.id ? 'var(--gold)' : '');
+  });
+},{threshold:0.4}).observe(s));
+
+const secObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) links.forEach(l => l.style.color = l.getAttribute('href')==='#'+e.target.id ? 'var(--gold)' : '');
+  });
+},{threshold:0.4});
+secs.forEach(s => secObserver.observe(s));
+</script>
+</body>
+</html>
